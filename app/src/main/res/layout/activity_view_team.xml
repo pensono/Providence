@@ -9,26 +9,41 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:touchscreenBlocksFocus="false"
-        app:theme="@style/Toolbar" />
+        app:theme="@style/Toolbar"
+        android:elevation="4dp" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/toolbar"
-        android:id="@+id/view_team_content"
-        style="@style/Background">
+        android:id="@+id/viewTeam_content"
+        style="@style/Background"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/view_team_image" />
+            android:id="@+id/viewTeam_image"
+            android:paddingTop="8dp" />
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:id="@+id/viewTeam_attributes"
+            style="@style/Background" />
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView" />
+            android:text="Add Attribute"
+            android:id="@+id/button"
+            android:layout_gravity="right"
+            android:nestedScrollingEnabled="false"
+            android:onClick="addAttribute" />
+
     </LinearLayout>
 </RelativeLayout>

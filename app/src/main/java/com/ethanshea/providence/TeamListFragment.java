@@ -19,6 +19,7 @@ public class TeamListFragment extends RecyclerListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
+
         setRecyclerAdapter(new TeamListAdapter());
         return v;
     }

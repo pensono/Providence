@@ -11,7 +11,9 @@
         app:theme="@style/Toolbar"
         android:theme="@style/Toolbar"
         android:transitionGroup="false"
-        style="@style/Toolbar" />
+        style="@style/Toolbar"
+        android:focusable="false"
+        android:elevation="4dp" />
 
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/main_tabs"
@@ -19,7 +21,8 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/Toolbar"
         style="@style/Toolbar"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:elevation="4dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_pager"
