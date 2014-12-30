@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light"></style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="android:textColorSecondary">#b3b3b3</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textColorPrimary">#ffffff</item>
+    </style>
+
+    <style name="Background" parent="AppTheme">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <style name="Toolbar" parent="AppTheme">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
+    <color name="dividerColor">#e0e0e0</color>
+    <color name="text_color">#000000</color>
+    <color name="primary">#4caf50</color>
+    <color name="primary_dark">#1b5e20</color>
+    <color name="window_background">#F1F8E9</color>
+    <color name="accent">#8D6E63</color>
+    <color name="color_team_red">#B71C1C</color>
+    <color name="color_team_blue">#0D47A1</color>
+</resources>
