@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:paddingLeft="16dp"
-        android:paddingTop="12dp"
+        android:paddingTop="16dp"
         android:paddingRight="16dp"
         android:textSize="18sp"
         android:layout_alignParentRight="true"

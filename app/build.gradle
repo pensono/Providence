@@ -26,5 +26,5 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.+'
     //For the sliding tab layout aka Material design tabs
     compile 'com.jpardogo.materialtabstrip:library:1.0.6'
-    compile 'com.android.support:palette-v7:21.0.+'
+//    compile 'com.android.support:palette-v7:21.0.+'
 }

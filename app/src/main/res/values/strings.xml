@@ -5,4 +5,7 @@
     <string name="title_section2">Matches</string>
     <string name="action_settings">Settings</string>
     <string name="database_template">{\"owner\":5495,\"teams\":[{\"name\":\"Taterbotz\",\"number\":2930,\"Drivetrain\":\"Mechanum\"},{\"name\":\"Alluminati\",\"number\":5495},{\"name\":\"NRG\",\"number\":948}],\"matches\":[{\"number\":1,\"red\":[2930,5495,948],\"blue\":[2930,5495,948]}]}\"</string>
+    <string name="attribute_name">Attribute Name</string>
+    <string name="add_attribute">Add Attribute</string>
+    <string name="action_add">Add</string>
 </resources>

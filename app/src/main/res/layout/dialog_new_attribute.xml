@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="24dp"
+              android:paddingRight="24dp"
+              android:paddingTop="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"
+        android:text="Large Text"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addAttribute_name"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp"
+        android:textSize="16sp"
+        android:hint="@string/attribute_name"
+        android:capitalize="words"/>
+
+    <com.ethanshea.android.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:id="@+id/addAttribute_chips"
+        app:horizontalSpacing="8dp"
+        app:verticalSpacing="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/cancel"
+            android:id="@+id/addAttribute_cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textColor="@color/primary_dark"/>
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_add"
+            android:id="@+id/addAttribute_add"
+            android:textColor="@color/primary_dark"/>
+    </LinearLayout>
+</LinearLayout>
