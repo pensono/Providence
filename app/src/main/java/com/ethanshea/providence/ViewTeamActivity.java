@@ -203,12 +203,20 @@ public class ViewTeamActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 String name = attributeName.getText().toString();
+                                dialog.dismiss();
+
+                                if (teamData.has(name)) {
+                                    //The user tried to add an attribute that's already there. Just ignore it for now
+                                    //TODO Later, use inline error correction in the text field, and disable the add button ot stop duplicates
+                                    // orrr... close the dialog and move focus to the attribute they typed in. Decisions, decisions.
+                                    return;
+                                }
+
                                 try {
                                     teamData.put(name, "");
                                 } catch (JSONException e) {
                                     Log.e(MainActivity.LOG_TAG, "Something strange happened when adding an attribute to the team", e);
                                 }
-                                dialog.dismiss();
                                 addAttributeUI(name, true);
                             }
                         });
