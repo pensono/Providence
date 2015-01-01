@@ -37,6 +37,7 @@ public class ViewTeamActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_team);
+        overridePendingTransition(R.anim.slide_in, R.anim.still);
 
         int pos = getIntent().getIntExtra(TeamListFragment.TEAM_INDEX, 0);
 
@@ -68,6 +69,11 @@ public class ViewTeamActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.still, R.anim.slide_out);
     }
 
     private void addAttributeUI(final String key) {

@@ -19,6 +19,8 @@
         <item name="android:background">@color/primary</item>
     </style>
 
+    <integer name="window_anim_time">@android:integer/config_shortAnimTime</integer>
+
     <color name="dividerColor">#e0e0e0</color>
     <color name="text_color">#000000</color>
     <color name="primary">#4caf50</color>
