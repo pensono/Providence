@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:background="@drawable/background_rounded"
-        android:singleLine="true"
-        android:text="Drivetrain">
-
-</Button>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="wrap_content"
+          android:layout_height="32dp"
+          android:height="32dp"
+          android:background="@drawable/background_rounded"
+          android:singleLine="true"
+          android:gravity="center"
+          style="@android:style/Widget.Button"
+          android:text="Drivetrain"
+          android:paddingLeft="8dp"
+          android:paddingRight="8dp">
+</TextView>

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -165,32 +166,34 @@ public class ViewTeamActivity extends Activity {
                 while (attrs.hasNext()) {
                     attributes.remove(attrs.next());
                 }
-//                attributes.remove("name");
-//                attributes.remove("number");
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        View attributeView = getLayoutInflater().inflate(R.layout.dialog_new_attribute, null);
+                        ViewGroup attributeView = (ViewGroup) getLayoutInflater().inflate(R.layout.dialog_new_attribute, null);
                         ViewGroup chips = (ViewGroup) attributeView.findViewById(R.id.addAttribute_chips);
                         final EditText attributeName = (EditText) attributeView.findViewById(R.id.addAttribute_name);
 
-                        for (final String attr : attributes) {
-                            TextView chip = (TextView) getLayoutInflater().inflate(R.layout.chip_basic, null);
-                            chip.setText(attr);
-                            chip.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    attributeName.setText(attr);
-                                    //There's a possible chance to get the text from the view, but I don't think it's worth it
-                                }
-                            });
-                            chips.addView(chip);
+                        if (attributes.size() == 0) {
+                            attributeView.removeView(chips);
+                        } else {
+                            for (final String attr : attributes) {
+                                TextView chip = (TextView) getLayoutInflater().inflate(R.layout.chip_basic, null);
+                                chip.setText(attr);
+                                chip.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        attributeName.setText(attr);
+                                        //There's a possible chance to get the text from the view, but I don't think it's worth it
+                                    }
+                                });
+                                chips.addView(chip);
+                            }
                         }
 
                         final Dialog dialog = new Dialog(ViewTeamActivity.this);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.setContentView(attributeView);
-                        dialog.setTitle(R.string.add_attribute);
                         dialog.setCancelable(true);
 
                         attributeView.findViewById(R.id.addAttribute_cancel).setOnClickListener(new View.OnClickListener() {

@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_width="wrap_content"
+              android:minWidth="280dp"
+              android:layout_height="wrap_content"
               android:paddingLeft="24dp"
               android:paddingRight="24dp"
               android:paddingTop="24dp">
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"
-        android:text="Large Text"/>
+        android:text="@string/add_attribute"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -26,10 +27,11 @@
         android:capitalize="words"/>
 
     <com.ethanshea.android.FlowLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top"
         android:id="@+id/addAttribute_chips"
+        android:layout_marginTop="8dp"
         app:horizontalSpacing="8dp"
         app:verticalSpacing="8dp"/>
 

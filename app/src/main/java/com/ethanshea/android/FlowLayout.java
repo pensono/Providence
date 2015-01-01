@@ -90,6 +90,7 @@ public class FlowLayout extends ViewGroup {
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            int dbX = child.getMeasuredHeight();
             child.layout(lp.x, lp.y, lp.x + child.getMeasuredWidth(), lp.y + child.getMeasuredHeight());
         }
     }
