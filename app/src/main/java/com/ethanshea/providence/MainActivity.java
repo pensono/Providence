@@ -38,8 +38,10 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         //Load our data
-        File dbFile = new File(DB_FILENAME);
-        database = dbFile.exists() ? loadJson(dbFile) : makeDb();
+        if (database == null) {
+            File dbFile = new File(DB_FILENAME);
+            database = dbFile.exists() ? loadJson(dbFile) : makeDb();
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
