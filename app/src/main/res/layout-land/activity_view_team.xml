@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                                       android:id="@+id/toolbar"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       app:theme="@style/Toolbar"
+                                       android:elevation="4dp"
+                                       android:layout_alignParentRight="true"
+                                       android:layout_alignParentEnd="true"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewTeam_image"
+        android:scaleType="centerInside"
+        android:background="@color/primary"
+        android:src="@drawable/no_image"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:layout_toLeftOf="@+id/scrollView"
+        android:layout_toStartOf="@+id/scrollView"/>
+
+    <ScrollView
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/scrollView"
+        android:layout_alignTop="@+id/viewTeam_image">
+
+        <include
+            layout="@layout/view_team_content"
+            android:id="@+id/include"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></include>
+    </ScrollView>
+
+</RelativeLayout>

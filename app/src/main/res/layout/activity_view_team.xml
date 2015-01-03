@@ -32,34 +32,7 @@
                 android:src="@drawable/no_image"
                 android:adjustViewBounds="true"/>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/toolbar"
-                android:id="@+id/viewTeam_content"
-                style="@style/Background"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/toolbar"
-                    android:id="@+id/viewTeam_attributes"
-                    style="@style/Background"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_attribute"
-                    android:id="@+id/button"
-                    android:layout_gravity="right"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="addAttribute"/>
-
-            </LinearLayout>
+            <include layout="@layout/view_team_content"></include>
         </LinearLayout>
     </ScrollView>
 
