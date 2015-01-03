@@ -5,50 +5,62 @@
               android:orientation="vertical"
               android:focusableInTouchMode="true">
 
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                                        android:id="@+id/toolbar"
                                        android:layout_width="match_parent"
                                        android:layout_height="wrap_content"
                                        app:theme="@style/Toolbar"
                                        android:elevation="4dp"/>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:id="@+id/viewTeam_content"
-            style="@style/Background"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <ImageView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/viewTeam_image"
-                android:paddingTop="8dp"/>
+                android:scaleType="centerInside"
+                android:background="@color/primary"
+                android:src="@drawable/no_image"
+                android:adjustViewBounds="true"/>
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/toolbar"
-                android:id="@+id/viewTeam_attributes"
-                style="@style/Background"/>
+                android:id="@+id/viewTeam_content"
+                style="@style/Background"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_attribute"
-                android:id="@+id/button"
-                android:layout_gravity="right"
-                android:nestedScrollingEnabled="false"
-                android:onClick="addAttribute"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/toolbar"
+                    android:id="@+id/viewTeam_attributes"
+                    style="@style/Background"/>
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_attribute"
+                    android:id="@+id/button"
+                    android:layout_gravity="right"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="addAttribute"/>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

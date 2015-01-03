@@ -22,6 +22,7 @@
     <integer name="window_anim_time">@android:integer/config_shortAnimTime</integer>
 
     <color name="dividerColor">#e0e0e0</color>
+    <color name="highlight">#43A047</color>
     <color name="text_color">#000000</color>
     <color name="primary">#4caf50</color>
     <color name="primary_dark">#1b5e20</color>

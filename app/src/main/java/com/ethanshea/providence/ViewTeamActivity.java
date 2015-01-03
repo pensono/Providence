@@ -3,8 +3,13 @@ package com.ethanshea.providence;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,24 +29,52 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
 
 public class ViewTeamActivity extends Activity {
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private RecyclerView recyclerView;
+    private static final String TEAM_INDEX = "team index";
+    //Used for taking images
+    private static final String IMAGE_FULL_PATH = "image full path";
+    private static final String IMAGE_NAME = "image name";
+
+
     private JSONObject teamData;
+    private int teamIndex; //Depricate this
     private LinearLayout attributes;
+    private ImageView imageView;
+
+    private Uri imageUri;
+    private String imageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_view_team);
         overridePendingTransition(R.anim.slide_in, R.anim.still);
 
-        int pos = getIntent().getIntExtra(TeamListFragment.TEAM_INDEX, 0);
+        int pos;
+        if (savedInstanceState != null) {
+            pos = savedInstanceState.getInt(TEAM_INDEX);
+            String uri = savedInstanceState.getString(IMAGE_FULL_PATH);
+            if (uri != null)
+                imageUri = Uri.parse(uri);
+        } else {
+            pos = getIntent().getIntExtra(TeamListFragment.TEAM_INDEX, 0);
+            teamIndex = pos;
+        }
 
         Log.i(MainActivity.LOG_TAG, "Opening up team at index:" + pos);
         try {
@@ -48,6 +82,18 @@ public class ViewTeamActivity extends Activity {
         } catch (JSONException e) {
             teamData = new JSONObject();
             Log.e(MainActivity.LOG_TAG, "Could not find the team with index:" + pos, e);
+        }
+
+        //Set up the image
+        imageView = (ImageView) findViewById(R.id.viewTeam_image);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePicture();
+            }
+        });
+        if (teamData.has("image")) {
+            imageView.setImageBitmap(BitmapFactory.decodeFile(getImageDir() + File.separator + teamData.optString("image")));
         }
 
         //Set up the team attributes list
@@ -72,9 +118,67 @@ public class ViewTeamActivity extends Activity {
         });
     }
 
+    private void takePicture() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            String timeStamp = new SimpleDateFormat("dd_HHmmss").format(new Date());
+            imageName = teamData.optString("number", "000") + "_" + timeStamp + ".jpg";
+            File imageFile = new File(getImageDir(), imageName);
+            imageUri = Uri.fromFile(imageFile);
+            try {
+                imageFile.createNewFile();
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+            } catch (IOException e) {
+                Log.e(MainActivity.LOG_TAG, "Error creating the new team image file. Path: " + imageUri, e);
+            }
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    private File getImageDir() {return getExternalFilesDir(Environment.DIRECTORY_PICTURES);}
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            try {
+                teamData.put("image", imageName);
+            } catch (JSONException e) {
+                Log.e(MainActivity.LOG_TAG, "Error adding the image attribute to the team data", e);
+            }
+
+            try {
+                //Scale the image to 720 by whatever (most likely 1280 or 720 depending on the aspect ratio.)
+                InputStream is = getContentResolver().openInputStream(imageUri);
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                is.close();
+
+                imageView.setImageBitmap(bitmap);
+                //We might as well keep the original for right after the image is taken.
+                //Create a new one to scale and save
+                float ratio = bitmap.getHeight() / bitmap.getWidth();
+                Bitmap saveBitmap = Bitmap.createScaledBitmap(bitmap, 720, (int) (ratio * 720f), true);
+                OutputStream os = getContentResolver().openOutputStream(imageUri);
+                saveBitmap.compress(Bitmap.CompressFormat.JPEG, 60, os);
+                os.close();
+            } catch (FileNotFoundException e) {
+                Log.e(MainActivity.LOG_TAG, "Error creating or resizing team image file. Looking at:" + imageUri.getPath(), e);
+            } catch (IOException e) {
+                Log.e(MainActivity.LOG_TAG, "Error closing or using some file stream", e);
+            }
+            Log.i(MainActivity.LOG_TAG, "Image saved at: " + imageUri.getPath());
+        }
+    }
+
     protected void onPause() {
         super.onPause();
         overridePendingTransition(R.anim.still, R.anim.slide_out);
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(IMAGE_FULL_PATH, imageUri);
+        outState.putInt(TEAM_INDEX, teamIndex);
+        outState.putString(IMAGE_NAME, imageName);
     }
 
     private void addAttributeUI(final String key) {
@@ -166,6 +270,7 @@ public class ViewTeamActivity extends Activity {
                 while (attrs.hasNext()) {
                     attributes.remove(attrs.next());
                 }
+                attributes.remove("image");
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -206,8 +311,10 @@ public class ViewTeamActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 String name = attributeName.getText().toString();
+                                name = name.trim();
                                 dialog.dismiss();
 
+                                if (name.isEmpty()) return;
                                 if (teamData.has(name)) {
                                     //The user tried to add an attribute that's already there. Just ignore it for now
                                     //TODO Later, use inline error correction in the text field, and disable the add button ot stop duplicates
@@ -217,10 +324,10 @@ public class ViewTeamActivity extends Activity {
 
                                 try {
                                     teamData.put(name, "");
+                                    addAttributeUI(name, true);
                                 } catch (JSONException e) {
                                     Log.e(MainActivity.LOG_TAG, "Something strange happened when adding an attribute to the team", e);
                                 }
-                                addAttributeUI(name, true);
                             }
                         });
                         dialog.show();
